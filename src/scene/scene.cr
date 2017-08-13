@@ -52,7 +52,19 @@ module Shadow
 		### Defines the application.
 		###
 		def application=( app : Application|Nil )
-			@application = app
+
+			if @application.nil? && !app.nil?
+				@application = app
+				self.enter_scene
+			elsif !@application.nil? && app.nil?
+				self.exit_scene
+				@application = nil
+			elsif !@application.nil? && @application != app
+				self.exit_scene
+				@application = app
+				self.enter_scene
+			end
+
 		end
 
 

@@ -92,13 +92,16 @@ module Shadow
 		###
 		def <<( c : Component )
 			@components << c
+			c.node = self
 			self
 		end
 
 		### Deletes the component with the given symbol from the node.
 		###
 		def delete( comp : Symbol )
-			@components.delete comp
+			comp = @components.delete comp
+			comp.node = nil
+			self
 		end
 
 

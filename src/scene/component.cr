@@ -4,6 +4,10 @@ require "crsfml"
 
 module Shadow
 
+	class Node
+	end
+
+
 	### Base class for all node's components.
 	###
 	### Typical call order of the methods :
@@ -92,6 +96,9 @@ module Shadow
 
 
 
+		@node : Node|Nil
+
+
 
 		### Checks if the component has been initialized (`ready` method
 		### called).
@@ -108,6 +115,34 @@ module Shadow
 		###
 		def initialize
 			@is_ready = false
+			@node = nil
+		end
+
+
+
+
+		### Gets the node.
+		###
+		def node
+			@node.not_nil!
+		end
+
+		### Gets the node.
+		###
+		def node?
+			@node
+		end
+
+		### Checks if it has a node.
+		###
+		def has_node?
+			!@node.nil?
+		end
+
+		### Sets the node.
+		###
+		def node=( n : Node )
+			@node = n
 		end
 
 
