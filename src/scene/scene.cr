@@ -6,6 +6,9 @@ require "./node.cr"
 
 module Shadow
 
+	abstract class Application
+	end
+
 
 	### Root of the scene tree.
 	###
@@ -14,10 +17,42 @@ module Shadow
 
 
 
+		@application : Application|Nil
+
+
+
 		### Initialize a new instance.
 		###
 		def initialize
 			super
+
+			@application = nil
+		end
+
+
+
+		### Gets the application.
+		###
+		def application
+			@application.not_nil!
+		end
+
+		### Gets the application.
+		###
+		def application?
+			@application
+		end
+
+		### Checks if the scene has an application.
+		###
+		def has_application?
+			!@application.nil?
+		end
+
+		### Defines the application.
+		###
+		def application=( app : Application|Nil )
+			@application = app
 		end
 
 
@@ -25,7 +60,7 @@ module Shadow
 		### Overloading hierachy getters of Node.
 		### @{
 		def in_scene?
-			true
+			!@application.nil?
 		end
 
 		def scene
