@@ -58,6 +58,7 @@ module Shadow
 				end
 
 				dt = @clock.elapsed_time
+				@clock.restart
 
 				s.pre_update dt
 				s.update dt

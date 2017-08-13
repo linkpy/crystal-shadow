@@ -46,13 +46,13 @@ module Shadow
 				### Gets the component of type {{@type.name.id}}.
 				###
 				def []( k : {{@type}}.class )
-					self[ k.symbol ]
+					self[ k.symbol ].as {{@type}}
 				end
 
 				### Gets the component of type {{@type.name.id}}
 				###
 				def []?( k : {{@type}}.class )
-					self[ k.symbol ]?
+					self[ k.symbol ]?.as {{@type}}|Nil
 				end
 
 				### Deletes the component of type {{@type.name.id}}
@@ -68,13 +68,13 @@ module Shadow
 				### Gets the component of type {{@type.name.id}}.
 				###
 				def component( k : {{@type}}.class )
-					@components[ k.symbol ]
+					@components[ k.symbol ].as {{@type}}
 				end
 
 				### Gets the component of type {{@type.name.id}}.
 				###
 				def component?( k : {{@type}}.class )
-					@components[ k.symbol ]?
+					@components[ k.symbol ]?.as {{@type}}|Nil
 				end
 
 				### Checks if the node has the component of type

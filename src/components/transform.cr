@@ -127,12 +127,14 @@ module Shadow::Components
 
 		### Gets the position.
 		###
+		@[AlwaysInline]
 		def position
 			@transform.position
 		end
 
 		### Sets the position.
 		###
+		@[AlwaysInline]
 		def position=( p )
 			@transform.position = p
 			invalidate
@@ -141,12 +143,14 @@ module Shadow::Components
 
 		### Gets the rotation.
 		###
+		@[AlwaysInline]
 		def rotation
 			@transform.rotation
 		end
 
 		### Sets the rotation.
 		###
+		@[AlwaysInline]
 		def rotation=( r )
 			@tranform.rotation = r
 			invalidate
@@ -155,12 +159,14 @@ module Shadow::Components
 
 		### Gets the scale.
 		###
+		@[AlwaysInline]
 		def scale
 			@transform.scale
 		end
 
 		### Sets the scale.
 		###
+		@[AlwaysInline]
 		def scale=( s )
 			@transform.scale = s
 			invalidate
@@ -169,12 +175,14 @@ module Shadow::Components
 
 		### Gets the origin.
 		###
+		@[AlwaysInline]
 		def origin
 			@transform.origin
 		end
 
 		### Sets the origin.
 		###
+		@[AlwaysInline]
 		def origin=( o )
 			@transform.origin = o
 			invalidate
@@ -185,6 +193,7 @@ module Shadow::Components
 
 		### Sets the position.
 		###
+		@[AlwaysInline]
 		def set_position( x, y )
 			@transform.set_position x, y
 			invalidate
@@ -193,6 +202,7 @@ module Shadow::Components
 
 		### Sets the scale.
 		###
+		@[AlwaysInline]
 		def set_scale( x, y )
 			@transform.set_scale x, y
 			invalidate
@@ -201,6 +211,7 @@ module Shadow::Components
 
 		### Sets the origin.
 		###
+		@[AlwaysInline]
 		def set_origin( x, y )
 			@transform.set_origin x, y
 			invalidate
@@ -211,6 +222,7 @@ module Shadow::Components
 
 		### Moves the transform.
 		###
+		@[AlwaysInline]
 		def move( x, y )
 			@transform.move x, y
 			invalidate
@@ -219,6 +231,7 @@ module Shadow::Components
 
 		### Moves the transform.
 		###
+		@[AlwaysInline]
 		def move( v )
 			@transform.move v
 			invalidate
@@ -227,6 +240,7 @@ module Shadow::Components
 
 		### Rotates the transform.
 		###
+		@[AlwaysInline]
 		def rotate( r )
 			@transform.rotate r
 			invalidate
@@ -235,6 +249,7 @@ module Shadow::Components
 
 		### Scales the transform.
 		###
+		@[AlwaysInline]
 		def scale( x, y )
 			@transform.scale x, y
 			invalidate
@@ -243,6 +258,7 @@ module Shadow::Components
 
 		### Scales the transform.
 		###
+		@[AlwaysInline]
 		def scale( v )
 			@transform.scale v
 			invalidate
@@ -253,12 +269,14 @@ module Shadow::Components
 
 		### Gets the transform matrix.
 		###
+		@[AlwaysInline]
 		def get_transform
 			@transform.transform
 		end
 
 		### Gets the inverse transform matrix.
 		###
+		@[AlwaysInline]
 		def get_inv_transform
 			@transform.inverse_transform
 		end
@@ -290,24 +308,28 @@ module Shadow::Components
 
 		### Transforms a local vector to world space.
 		###
+		@[AlwaysInline]
 		def local_to_world( x, y )
 			@transform.transform.transform_point x, y
 		end
 
 		### Transforms a local vector to world space.
 		###
+		@[AlwaysInline]
 		def local_to_world( v )
 			@transform.transform.transform_point v
 		end
 
 		### Transforms a world vector to local space.
 		###
+		@[AlwaysInline]
 		def world_to_local( x, y )
 			@transform.inverse_transform.transform_point x, y
 		end
 
 		### Transforms a world vector to local space.
 		###
+		@[AlwaysInline]
 		def world_to_local( v )
 			@transform.inverse_transform.transform_point v
 		end
