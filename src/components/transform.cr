@@ -58,11 +58,19 @@ module Shadow::Components
 
 
 
+		@global_matrix : SF::Transform|Nil
+		@global_inv_matrix : SF::Transform|Nil
+
+
+
 		### Initialies a new instance.
 		###
 		def initialize
 			super
 			@transform = SF::Transformable.new
+
+			@global_matrix = nil
+			@global_inv_matrix = nil
 		end
 
 		### Initialies a new instance.
@@ -101,6 +109,22 @@ module Shadow::Components
 
 
 
+		### Invalidates the transform and its children.
+		###
+		@[AlwaysInline]
+		protected def invalidate
+			if !@global_matrix.nil?
+				node.all_in_children( Transform, shallow: true ).each do |comp|
+					comp.invalidate
+				end
+			end
+
+			@global_matrix = nil
+			@global_inv_matrix = nil
+		end
+
+
+
 		### Gets the position.
 		###
 		def position
@@ -111,6 +135,8 @@ module Shadow::Components
 		###
 		def position=( p )
 			@transform.position = p
+			invalidate
+			p
 		end
 
 		### Gets the rotation.
@@ -123,6 +149,8 @@ module Shadow::Components
 		###
 		def rotation=( r )
 			@tranform.rotation = r
+			invalidate
+			r
 		end
 
 		### Gets the scale.
@@ -135,6 +163,8 @@ module Shadow::Components
 		###
 		def scale=( s )
 			@transform.scale = s
+			invalidate
+			s
 		end
 
 		### Gets the origin.
@@ -147,6 +177,8 @@ module Shadow::Components
 		###
 		def origin=( o )
 			@transform.origin = o
+			invalidate
+			o
 		end
 
 
@@ -155,18 +187,24 @@ module Shadow::Components
 		###
 		def set_position( x, y )
 			@transform.set_position x, y
+			invalidate
+			self
 		end
 
 		### Sets the scale.
 		###
 		def set_scale( x, y )
 			@transform.set_scale x, y
+			invalidate
+			self
 		end
 
 		### Sets the origin.
 		###
 		def set_origin( x, y )
 			@transform.set_origin x, y
+			invalidate
+			self
 		end
 
 
@@ -175,30 +213,103 @@ module Shadow::Components
 		###
 		def move( x, y )
 			@transform.move x, y
+			invalidate
+			self
 		end
 
 		### Moves the transform.
 		###
 		def move( v )
 			@transform.move v
+			invalidate
+			self
 		end
 
 		### Rotates the transform.
 		###
 		def rotate( r )
 			@transform.rotate r
+			invalidate
+			self
 		end
 
 		### Scales the transform.
 		###
 		def scale( x, y )
 			@transform.scale x, y
+			invalidate
+			self
 		end
 
 		### Scales the transform.
 		###
 		def scale( v )
 			@transform.scale v
+			invalidate
+			self
+		end
+
+
+
+		### Gets the transform matrix.
+		###
+		def get_transform
+			@transform.transform
+		end
+
+		### Gets the inverse transform matrix.
+		###
+		def get_inv_transform
+			@transform.inverse_transform
+		end
+
+		def get_global_transform
+			if @global_matrix.nil?
+				pcomp = node.first_in_ancestry Transform
+
+				if !pcomp.nil?
+					@global_matrix = pcomp.get_global_transform *
+						@tranform.transform
+				else
+					@global_matrix = @transform.transform
+				end
+			end
+
+			@global_matrix.not_nil!
+		end
+
+		def get_global_inv_transform
+			if @global_inv_matrix.nil?
+				@global_inv_matrix = get_global_transform.inverse
+			end
+
+			@global_inv_matrix.not_nil!
+		end
+
+
+
+		### Transforms a local vector to world space.
+		###
+		def local_to_world( x, y )
+			@transform.transform.transform_point x, y
+		end
+
+		### Transforms a local vector to world space.
+		###
+		def local_to_world( v )
+			@transform.transform.transform_point v
+		end
+
+		### Transforms a world vector to local space.
+		###
+		def world_to_local( x, y )
+			@transform.inverse_transform.transform_point x, y
+		end
+
+		### Transforms a world vector to local space.
+		###
+		def world_to_local( v )
+			@transform.inverse_transform.transform_point v
 		end
 
 

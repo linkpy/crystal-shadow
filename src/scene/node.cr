@@ -64,6 +64,15 @@ module Shadow
 			@components.each
 		end
 
+		### Enumerates on all the node's parent (to the scene root).
+		###
+		def each_parent( &block )
+			p = self
+			while p = p.parent?
+				yield p
+			end
+		end
+
 
 
 
@@ -83,6 +92,104 @@ module Shadow
 		###
 		def has_component?( comp : Symbol )
 			!@components[ comp ]?.nil?
+		end
+
+
+
+		### Gets the first component corresponding to `s` in the ancestry.
+		###
+		def first_in_ancestry( s )
+			comp = nil
+			each_parent do |p|
+				if p.has_component? s
+					comp = p.component s
+					break
+				end
+			end
+			comp
+		end
+
+		### Gets the first component corresponding to `s` in the children.
+		###
+		### If `shallow` is `false`, then the methods will seach recursivly.
+		###
+		def first_in_children( s, *, shallow = true )
+			comp = nil
+			each do |child|
+				if child.has_component? s
+					comp = child.component s
+					break
+				end
+			end
+			
+			if comp.nil? && !shallow
+				each do |child|
+					comp = child.first_in_children s
+					break if !comp.nil?
+				end
+			end
+
+			comp
+		end
+
+		### Gets all the components corresponding to the given symbol in the
+		### ancestry.
+		###
+		def all_in_ancestry( s : Symbol )
+			arr = [] of Component
+			each_parent do |p|
+				if p.has_component? s
+					arr << p.component s
+				end
+			end
+			arr
+		end
+
+		### Gets all components corresponding to the given symbol in the
+		### children. If `shallow` is `false`, the method will search
+		### recursivly.
+		###
+		def all_in_children( s : Symbol, *, shallow = true )
+			arr = [] of Component
+			each do |child|
+				if shallow
+					if child.has_component? s
+						arr << arr.component s
+					end
+				else
+					arr += child.all_in_children s, shallow: false
+				end
+			end
+			arr
+		end
+
+		### Gets all components of the given type in the ancestry.
+		###
+		def all_in_ancestry( klass : T.class ) forall T
+			arr = [] of T
+			each_parent do |p|
+				if p.has_component? klass
+					arr << p.component( klass ).as T
+				end
+			end
+			arr
+		end
+
+		### Gets all components of the given type in the children. If `shallow` 
+		### is `false`, the method will search recursivly.
+		###
+		def all_in_children( klass : T.class, *, shallow = true ) forall T
+			arr = [] of T
+			each do |child|
+				if shallow
+					if child.has_component? klass
+						arr << child.component( klass ).as T
+					end
+				else
+					arr += child.all_in_children klass, shallow: false
+				end
+			end
+			arr
 		end
 
 
