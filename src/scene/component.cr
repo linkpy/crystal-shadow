@@ -16,7 +16,6 @@ module Shadow
 	###  - Each frame :
 	###    - `event` (if any)
 	###    - `unhandled_event` (if any)
-	###    - `all_event` (if any)
 	###    - `pre_update`
 	###    - `update`
 	###    - `post_update`
