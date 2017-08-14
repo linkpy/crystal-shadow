@@ -1,5 +1,6 @@
 
 require "crsfml"
+require "./event-dispatcher.cr"
 
 
 module Shadow
@@ -30,6 +31,8 @@ module Shadow
 	### `Shadow::Node` class.
 	###
 	abstract class Component
+		include EventDispatcher
+
 
 		macro inherited
 
@@ -175,7 +178,7 @@ module Shadow
 		### This method returns `true` for flagging the event as handled.
 		###
 		def event( ev : SF::Event ) : Bool
-			false
+			dispatch_event ev
 		end
 
 		### Method called for handling the given event. This method is called

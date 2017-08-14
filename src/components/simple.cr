@@ -41,36 +41,49 @@ module Shadow::Components
 
 
 
+		### Initializes a new instance.
+		###
 		def initialize
 			super()
 		end
 
 
 
-
+		### Defines the `pre_update` callback.
+		###
 		def pre_update=( p : Proc(Simple, SF::Time, Nil) )
 			@pre_upd = p
 		end
 
+		### Defines the `update` callback.
+		###
 		def update=( p : Proc(Simple, SF::Time, Nil) )
 			@upd = p
 		end
 
+		### Defines the `post_update` callback.
+		###
 		def post_update=( p : Proc(Simple, SF::Time, Nil) )
 			@post_upd = p
 		end
 
+		### Defines the `late_update` callback.
+		###
 		def late_update=( p : Proc(Simple, SF::Time, Nil) )
 			@late_upd = p
 		end
 
 
 
+		### Defines the `event` callback.
+		###
 		def event=( p : Proc(Simple, SF::Event, Bool) )
 			@evt = p
 		end
 
-		def unhandled_evt( p : Proc(Simple, SF::Event, Nil) )
+		### Defines the `unhandled_event` callback.
+		###
+		def unhandled_event=( p : Proc(Simple, SF::Event, Nil) )
 			@unhandled_evt = p
 		end
 
