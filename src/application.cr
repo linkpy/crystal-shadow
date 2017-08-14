@@ -1,6 +1,7 @@
 
 require "crsfml"
 require "./scene/scene"
+require "./input/input-map.cr"
 
 
 module Shadow
@@ -60,6 +61,7 @@ module Shadow
 				dt = @clock.elapsed_time
 				@clock.restart
 
+				InputMap.update dt
 				s.pre_update dt
 				s.update dt
 				s.post_update dt
