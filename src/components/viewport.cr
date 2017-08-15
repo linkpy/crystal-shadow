@@ -44,6 +44,7 @@ module Shadow::Components
 		def left=( f )
 			@left = f
 			_update_view
+			f
 		end
 
 		### Sets the top position of the viewport.
@@ -51,6 +52,7 @@ module Shadow::Components
 		def top=( f )
 			@top = f
 			_update_view
+			f
 		end
 
 		### Sets the right position of the viewport.
@@ -58,6 +60,7 @@ module Shadow::Components
 		def right=( f )
 			@right = f
 			_update_view
+			f
 		end
 
 		### Sets the bottom position of the viewport.
@@ -65,6 +68,7 @@ module Shadow::Components
 		def bottom=( f )
 			@bottom = f
 			_update_view
+			f
 		end
 
 
