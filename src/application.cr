@@ -115,6 +115,8 @@ module Shadow
 		def <<( s : Scene )
 			@scenes << s
 			s.application = self
+			s.enter_scene
+			self
 		end
 
 
@@ -124,13 +126,17 @@ module Shadow
 		def push( s : Scene )
 			@scenes << s
 			s.application = self
+			s.enter_scene
+			self
 		end
 
 		### Pops a scene from the scene stack.
 		###
 		def pop
 			s = @scenes.pop
+			s.exit_scene
 			s.application = nil
+			s
 		end
 
 

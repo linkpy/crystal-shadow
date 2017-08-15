@@ -121,7 +121,7 @@ module Shadow
 					break
 				end
 			end
-			
+
 			if comp.nil? && !shallow
 				each do |child|
 					comp = child.first_in_children s
@@ -175,7 +175,7 @@ module Shadow
 			arr
 		end
 
-		### Gets all components of the given type in the children. If `shallow` 
+		### Gets all components of the given type in the children. If `shallow`
 		### is `false`, the method will search recursivly.
 		###
 		def all_in_children( klass : T.class, *, shallow = true ) forall T
@@ -236,6 +236,34 @@ module Shadow
 			end
 		end
 
+
+
+		### Gets the viewport of the current node.
+		###
+		def viewport
+			first_in_ancestry Components::Viewport
+		end
+
+
+
+		### Gets the application.
+		###
+		def application
+			scene.application
+		end
+
+		### Gets the application.
+		###
+		def application?
+			return nil if scene?.nil?
+			scene.application?
+		end
+
+		### Checks if the application is present.
+		###
+		def has_application?
+			scene.has_application?
+		end
 
 
 

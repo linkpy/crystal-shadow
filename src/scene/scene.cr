@@ -1,7 +1,8 @@
 
 require "crsfml"
 require "./node.cr"
-
+require "./component.cr"
+require "./component-collection.cr"
 
 
 module Shadow
@@ -27,6 +28,9 @@ module Shadow
 			super
 
 			@application = nil
+
+			@viewport = Components::Viewport.new
+			self << @viewport
 		end
 
 
@@ -52,19 +56,7 @@ module Shadow
 		### Defines the application.
 		###
 		def application=( app : Application|Nil )
-
-			if @application.nil? && !app.nil?
-				@application = app
-				self.enter_scene
-			elsif !@application.nil? && app.nil?
-				self.exit_scene
-				@application = nil
-			elsif !@application.nil? && @application != app
-				self.exit_scene
-				@application = app
-				self.enter_scene
-			end
-
+			@application = app
 		end
 
 
@@ -83,6 +75,10 @@ module Shadow
 			self
 		end
 
+
+		def viewport
+			@viewport
+		end
 
 
 		def parent?
@@ -103,6 +99,18 @@ module Shadow
 		### @}
 		###
 
+
+
+		def enter_scene
+			if @application.nil?
+				return
+			end
+
+			@viewport.view.size = @application.not_nil!.window.size
+			@viewport.view.center = @application.not_nil!.window.view.center
+
+			super
+		end
 
 
 		### Allows to directly draw the scene to a render target.
