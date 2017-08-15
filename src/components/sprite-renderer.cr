@@ -8,7 +8,7 @@ module Shadow::Components
 
 	### A simple sprite component.
 	###
-	class Sprite < Shadow::Component
+	class SpriteRenderer < Shadow::Component
 
 
 		@modulate : SF::Color

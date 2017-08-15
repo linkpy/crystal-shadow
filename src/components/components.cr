@@ -5,4 +5,5 @@ require "./simple.cr"
 require "./simple-events.cr"
 
 require "./transform.cr"
-require "./sprite.cr"
+require "./sprite-renderer.cr"
+require "./text-renderer.cr"

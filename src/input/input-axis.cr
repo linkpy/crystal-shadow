@@ -174,6 +174,7 @@ module Shadow
 	end
 
 
+
 	### Input axis using mouse buttons.
 	###
 	class InputMouseButtonAxis < InputBinaryAxis
